@@ -1,5 +1,7 @@
 allowBuilds:
   esbuild: true
   vue-demi: true
+  sharp: true
+  workerd: true
 minimumReleaseAgeExclude:
   - reka-ui@2.9.9
