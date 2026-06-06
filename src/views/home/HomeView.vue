@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useWindowScroll } from "@vueuse/core";
+import { RouterLink } from "vue-router";
 
 import StarsBackground from "@/components/ui/bg-stars/StarsBackground.vue";
 import BlurReveal from "@/components/ui/blur-reveal/BlurReveal.vue";
 import LandingPageBtn from "@/components/landing-page-btn/LandingPageButton.vue";
 import Timeline from "@/components/ui/timeline/Timeline.vue";
+import AnimatedTestimonials from "@/components/ui/animated-testimonials/AnimatedTestimonials.vue";
 
 import { ChevronDown, Eye } from "@lucide/vue";
 
@@ -22,7 +24,7 @@ const dynamicPadding = computed(() => {
   return Math.min((y.value - triggerPoint) * speed, maxPadding);
 });
 
-const data = [
+const educationnal_background = [
   {
     id: "lyceesevigne",
     label: "Lycée Sévigné",
@@ -44,6 +46,41 @@ const data = [
     img: "/schools/insa_of_rennes.jpeg",
     training_name: "Titre ingénieur - Spécialité Électronique",
     training_description: "Électronique - Systèmes Embarqués et Télécommunications (E-SET) en apprentissage"
+  }
+];
+
+const projects = [
+  {
+    quote:
+      "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
+    name: "Borne de recharge pour véhicule électrique",
+    designation: "Projet réalisé à l'IUT",
+    image:
+      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/684736b0114bda569257811e_WhatsApp%20Image%202025-04-02%20at%2000.28.03-p-2000.jpeg",
+  },
+  {
+    quote:
+      "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
+    name: "Console rétrogaming",
+    designation: "Projet réalisé à l'IUT",
+    image:
+      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/68475686f718e01304f9b684_WhatsApp%20Image%202025-01-19%20at%2018.43.26.jpeg",
+  },
+  {
+    quote:
+      "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
+    name: "Ghostbusters - Proton Pack",
+    designation: "Projet personnel",
+    image:
+      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/6542ca103fb929ad505374e1_WhatsApp%20Image%202023-11-01%20%C3%A0%2021.15.42_54243d27.jpg",
+  },
+  {
+    quote:
+      "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
+    name: "Voiture bluetooth arduino",
+    designation: "Projet personnel",
+    image:
+      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/660af961797518c371b851dd_IMG-20240401-WA0015.jpg",
   }
 ];
 </script>
@@ -97,8 +134,8 @@ const data = [
     </section>
 
     <!-- About me section -->
-    <section id="about-me" class="w-full pt-30 flex justify-center">
-      <div>
+    <section id="about-me" class="w-full pt-30 flex justify-center ">
+      <div >
         <h1
           class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
         >
@@ -136,44 +173,25 @@ const data = [
           Mon parcours
         </h1>
 
-        <Timeline :items="data" />
+        <Timeline :items="educationnal_background" />
       </div>
     </section>
 
     <!-- projects section -->
-    <section id="projects" class="h-screen w-full pt-30 flex justify-center">
-      <div>
-        <h1
-          class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
-        >
-          Mes projets
-        </h1>
-
-        <div class="flex w-full gap-16 items-center">
-          <p class="w-full md:w-110 leading-7">
-            👋 Salut, moi c'est Enzo !
-            <br /><br />
-            Depuis toujours, je suis fasciné par l’électronique et
-            l’informatique. Tout a commencé par une curiosité forte pour
-            démonter, comprendre et recréer toute sorte d'objets.
-            <br /><br />
-            Aujourd’hui, cette passion est devenue mon moteur : je suis étudiant
-            en
-            <strong>BUT Génie Électrique et Informatique Industrielle</strong>,
-            avec une envie débordante d'en apprendre toujours plus !
-            <br /><br />
-            Mon objectif est clair : devenir
-            <strong>ingénieur en systèmes embarqués</strong>, avec un rêve en
-            ligne de mire : contribuer aux avancées de l’<strong
-              >aéronautique et du spatial</strong
-            >. <br /><br />
-            ‍Bienvenue dans mon univers ! 🚀
-          </p>
-          <div class="w-120">
-            <img src="/projects.png" />
-          </div>
-        </div>
-      </div>
+    <section id="projects" class="h-screen w-full pt-30 flex justify-center flex-col px-34">
+      <h1
+        class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
+      >
+        Mes projets
+      </h1>
+      
+      <AnimatedTestimonials :testimonials="projects" :autoplay="true" :duration="5000">
+        <RouterLink :to="'projects'">
+            <LandingPageBtn text="Voir tout" theme="primary" :hyper-grow="false" class="h-ful"
+              ><Eye
+            /></LandingPageBtn>
+        </RouterLink>
+      </AnimatedTestimonials>
     </section>
   </main>
 </template>
