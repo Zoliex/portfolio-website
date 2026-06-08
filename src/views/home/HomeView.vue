@@ -273,16 +273,16 @@ const props = withDefaults(defineProps<Props>(), {
     </section>
 
     <!-- About me section -->
-    <section id="about-me" class="w-full pt-30 flex justify-center px-32">
+    <section id="about-me" class="w-full pt-20 md:pt-30 flex justify-center px-6 md:px-16 lg:px-32">
       <div>
         <h1
-          class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
+          class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
         >
           A propos
         </h1>
 
-        <div class="flex w-full gap-16 items-center">
-          <p class="w-full md:w-110 leading-7">
+        <div class="flex flex-col lg:flex-row w-full gap-8 lg:gap-16 items-center">
+          <p class="w-full lg:w-1/2 leading-7">
             👋 Salut, moi c'est Enzo !
             <br /><br />
             Depuis toujours, je suis fasciné par l’électronique et
@@ -301,13 +301,13 @@ const props = withDefaults(defineProps<Props>(), {
             >. <br /><br />
             ‍Bienvenue dans mon univers ! 🚀
           </p>
-          <div class="w-120 ml-auto">
-            <img src="/projects.png" />
+          <div class="w-full sm:w-2/3 lg:w-1/2 mx-auto lg:ml-auto">
+            <img src="/projects.png" class="w-full h-auto" />
           </div>
         </div>
 
         <h1
-          class="mt-36 scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
+          class="mt-24 md:mt-36 scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
         >
           Mon parcours
         </h1>
@@ -315,12 +315,12 @@ const props = withDefaults(defineProps<Props>(), {
         <Timeline :items="educationnal_background" />
 
         <h1
-          class="mt-36 scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
+          class="mt-24 md:mt-36 scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
         >
           Engagement et expériences
         </h1>
 
-        <div class="grid grid-cols-3 mt-15 gap-4 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-3 mt-8 md:mt-15 gap-6 md:gap-4 w-full">
           <CardContainer v-for="experience in experiences" class="h-full">
             <CardBody
               class="group/card relative h-full w-full rounded-xl border p-6 pb-18 bg-linear-to-t from-neutral-500/20 to-neutral-950 border-neutral-500 hover:shadow-2xl hover:shadow-neutral-500/10 transition-all duration-150"
@@ -375,10 +375,10 @@ const props = withDefaults(defineProps<Props>(), {
     <!-- projects section -->
     <section
       id="projects"
-      class="w-full pt-30 flex justify-center flex-col px-32"
+      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-6 md:px-16 lg:px-32"
     >
       <h1
-        class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl"
+        class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl"
       >
         Mes projets
       </h1>
@@ -404,10 +404,10 @@ const props = withDefaults(defineProps<Props>(), {
     <!-- skills section -->
     <section
       id="skills"
-      class="w-full pt-30 flex justify-center flex-col px-32"
+      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-6 md:px-16 lg:px-32"
     >
       <h1
-        class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
+        class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-6 md:mb-10 text-shadow-xl"
       >
         Mes compétences
       </h1>

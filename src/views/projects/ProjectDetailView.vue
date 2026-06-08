@@ -67,24 +67,22 @@ const myPortableTextComponents = {
 </script>
 
 <template>
-  <main class="px-32 pt-36 pb-32 max-w-5xl mx-auto">
-    <RouterLink to="/projects" class="mb-10 flex items-center gap-3 text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200">
-      <ChevronLeft /> Retour aux projets
-    </RouterLink>
-    
-    <div v-if="loading" class="text-white/50 text-xl text-center py-20">
+  <main class="px-6 md:px-16 lg:px-32 pt-24 md:pt-36 pb-16 md:pb-32 max-w-5xl mx-auto">
+    <div v-if="loading" class="text-center text-white/50 animate-pulse">
       Chargement du projet...
     </div>
     
-    <div v-else-if="project" class="animate-in fade-in slide-in-from-bottom-8 duration-700">
-      <h1 class="text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl text-white">
+    <article v-else-if="project" class="w-full">
+      <RouterLink to="/projects" class="mb-10 flex items-center gap-3 text-base md:text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200"><ChevronLeft /> Retour aux projets</RouterLink>
+      
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white dm-serif-italic mb-6 leading-tight">
         {{ project.nameOfProject }}
       </h1>
       
-      <div class="flex items-center gap-4 text-white/50 mb-8 font-medium">
+      <div class="flex flex-wrap items-center gap-4 text-white/50 mb-8 font-medium">
         <span class="text-sm capitalize">{{ formatDate(project.creationDate) }}</span>
-        <span>•</span>
-        <span class="px-3 py-1 bg-white/10 rounded-full text-sm font-medium">{{ project.projectType }}</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="px-3 py-1 bg-white/10 rounded-full text-xs md:text-sm font-medium w-fit">{{ project.projectType }}</span>
       </div>
 
       <div class="prose prose-invert prose-lg max-w-none">
@@ -111,9 +109,10 @@ const myPortableTextComponents = {
         </div>
       </div>
 
+      <!-- Galerie si existante -->
       <div v-if="project.gallery && project.gallery.length > 0" class="mt-16">
-        <h2 class="text-3xl font-bold text-white dm-serif-italic mb-6">Galerie</h2>
-        <viewer :images="project.gallery" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-white dm-serif-italic mb-6">Galerie</h2>
+        <viewer :images="project.gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div 
             v-for="(image, index) in project.gallery" 
             :key="index"
@@ -134,7 +133,7 @@ const myPortableTextComponents = {
         </viewer>
       </div>
 
-    </div>
+    </article>
     
     <div v-else class="text-red-400 text-xl py-20">
       Projet introuvable.

@@ -28,13 +28,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="px-32 pb-32">
+  <main class="px-6 md:px-16 lg:px-32 pb-16 md:pb-32">
     <h1
-      class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-8 text-shadow-xl pt-36"
+      class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-8 text-shadow-xl pt-24 md:pt-36"
     >
       Mes projets
     </h1>
-    <RouterLink to="/" class="mb-15 flex items-center gap-3 text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200"><ChevronLeft /> Retour à la page d'accueil</RouterLink>
+    <RouterLink to="/" class="mb-10 md:mb-15 flex items-center gap-3 text-base md:text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200"><ChevronLeft /> Retour à la page d'accueil</RouterLink>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       <RouterLink
         v-for="project in projects"
