@@ -419,8 +419,8 @@ const props = withDefaults(defineProps<Props>(), {
         Cette section rassemble les compétences que j'ai acquises, tant par
         passion personnelle que dans le cadre de mon BUT GEII à l'IUT de Rennes.
         Pour consulter le détail complet de mon parcours par rapport au
-        programme officiel, je vous invite à cliquer ici : Référentiel de
-        compétences.
+        programme officiel, je vous invite à cliquer ici : <a href="https://enzocoquelle.notion.site/20d627b5f22080ad942ec326fa603c61?v=20d627b5f22080019f81000cff6bce0c" target="_blank" class="text-shadow-lg text-blue-300 underline text-shadow-black/50 hover:text-blue-500 hover:scale-110 hover:font-bold hover:tracking-wide active:scale-105 animate-all duration-200">Référentiel de
+        compétences</a>.
       </p>
 
       <BentoGrid class="mx-auto max-w-4xl mt-10">
@@ -450,6 +450,18 @@ const props = withDefaults(defineProps<Props>(), {
           </template>
         </BentoGridItem>
       </BentoGrid>
+
+      <div class="mt-10 flex justify-center w-full">
+        <a href="https://enzocoquelle.notion.site/20d627b5f22080ad942ec326fa603c61?v=20d627b5f22080019f81000cff6bce0c" target="_blank" class="w-full sm:w-auto">
+          <LandingPageBtn
+            text="Voir le référentiel de compétences"
+            theme="primary"
+            :hyper-grow="false"
+            class="w-full justify-center"
+            ><Eye
+          /></LandingPageBtn>
+        </a>
+      </div>
     </section>
   </main>
 </template>
