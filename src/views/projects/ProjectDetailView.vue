@@ -9,6 +9,12 @@ const route = useRoute();
 const project = ref<any>(null);
 const loading = ref(true);
 
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+};
+
 onMounted(async () => {
   const slug = route.params.slug;
   const query = `*[_type == "project" && slug.current == $slug][0]`;
@@ -75,9 +81,10 @@ const myPortableTextComponents = {
         {{ project.nameOfProject }}
       </h1>
       
-      <div class="flex items-center gap-4 mb-12 text-white/60">
+      <div class="flex items-center gap-4 text-white/50 mb-8 font-medium">
+        <span class="text-sm capitalize">{{ formatDate(project.creationDate) }}</span>
+        <span>•</span>
         <span class="px-3 py-1 bg-white/10 rounded-full text-sm font-medium">{{ project.projectType }}</span>
-        <span class="text-sm">{{ project.creationDate }}</span>
       </div>
 
       <div class="prose prose-invert prose-lg max-w-none">

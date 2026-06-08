@@ -7,6 +7,12 @@ import ProgressiveBlur from '@/components/ui/progressive-blur/ProgressiveBlur.vu
 
 const projects = ref<any[]>([]);
 
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+};
+
 onMounted(async () => {
   const query = `*[_type == "project"] | order(creationDate desc) {
     _id,
@@ -66,8 +72,8 @@ onMounted(async () => {
             {{ project.description }}
           </p>
           <div class="flex justify-between items-center mt-1">
-            <div class="text-xs text-white/90 font-bold [text-shadow:_0_2px_8px_rgba(0,0,0,1)]">
-              {{ project.creationDate }}
+            <div class="text-xs text-white/90 font-bold [text-shadow:_0_2px_8px_rgba(0,0,0,1)] capitalize">
+              {{ formatDate(project.creationDate) }}
             </div>
             <span class="text-[10px] font-semibold px-2 py-1 bg-black/60 backdrop-blur-md text-white rounded-full whitespace-nowrap shrink-0 border border-white/20 shadow-xl">
               {{ project.projectType }}

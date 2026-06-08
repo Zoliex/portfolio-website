@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
+import { client, urlFor } from "@/lib/sanity";
 import { useWindowScroll } from "@vueuse/core";
 import { RouterLink } from "vue-router";
 
@@ -83,40 +84,23 @@ const experiences = [
   },
 ];
 
-const projects = [
-  {
-    quote:
-      "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
-    name: "Borne de recharge pour véhicule électrique",
-    designation: "Projet réalisé à l'IUT",
-    image:
-      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/684736b0114bda569257811e_WhatsApp%20Image%202025-04-02%20at%2000.28.03-p-2000.jpeg",
-  },
-  {
-    quote:
-      "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
-    name: "Console rétrogaming",
-    designation: "Projet réalisé à l'IUT",
-    image:
-      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/68475686f718e01304f9b684_WhatsApp%20Image%202025-01-19%20at%2018.43.26.jpeg",
-  },
-  {
-    quote:
-      "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
-    name: "Ghostbusters - Proton Pack",
-    designation: "Projet personnel",
-    image:
-      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/6542ca103fb929ad505374e1_WhatsApp%20Image%202023-11-01%20%C3%A0%2021.15.42_54243d27.jpg",
-  },
-  {
-    quote:
-      "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-    name: "Voiture bluetooth arduino",
-    designation: "Projet personnel",
-    image:
-      "https://cdn.prod.website-files.com/6542954f2cb4da2ec17c23ed/660af961797518c371b851dd_IMG-20240401-WA0015.jpg",
-  },
-];
+const projects = ref<any[]>([]);
+
+onMounted(async () => {
+  const query = `*[_type == "project"] | order(creationDate desc)[0...3] {
+    nameOfProject,
+    description,
+    mainImage,
+    projectType
+  }`;
+  const data = await client.fetch(query);
+  projects.value = data.map((p: any) => ({
+    quote: p.description,
+    name: p.nameOfProject,
+    designation: p.projectType,
+    image: p.mainImage ? urlFor(p.mainImage).width(800).height(800).auto('format').quality(80).url() : '',
+  }));
+});
 
 const skills = [
   {
@@ -400,6 +384,7 @@ const props = withDefaults(defineProps<Props>(), {
       </h1>
 
       <AnimatedTestimonials
+        v-if="projects.length > 0"
         :testimonials="projects"
         :autoplay="true"
         :duration="5000"
