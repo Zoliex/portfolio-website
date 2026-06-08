@@ -22,6 +22,6 @@ const lenisOptions = {
 
   <PageFooter />
   
-  <SmoothCursor v-if="!isMobile" class="!z-900" />
+  <SmoothCursor v-if="!isMobile" />
   <VueLenis root :options="lenisOptions" />
 </template>

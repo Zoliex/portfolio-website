@@ -1,0 +1,138 @@
+<script setup lang="ts">
+import { ref, onMounted, h, computed } from 'vue';
+import { useRoute, RouterLink } from 'vue-router';
+import { ChevronLeft } from '@lucide/vue';
+import { client, urlFor } from '@/lib/sanity';
+import { PortableText } from '@portabletext/vue';
+
+const route = useRoute();
+const project = ref<any>(null);
+const loading = ref(true);
+
+onMounted(async () => {
+  const slug = route.params.slug;
+  const query = `*[_type == "project" && slug.current == $slug][0]`;
+  project.value = await client.fetch(query, { slug });
+  loading.value = false;
+});
+
+const youtubeEmbedUrl = computed(() => {
+  if (!project.value?.videoUrl) return null;
+  const url = project.value.videoUrl;
+  const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+});
+
+const myPortableTextComponents = {
+  types: {
+    image: ({ value }: any) => {
+      return h('img', {
+        src: urlFor(value).width(1280).auto('format').quality(80).url(),
+        class: 'my-8 rounded-xl max-w-full h-auto',
+      });
+    },
+  },
+  marks: {
+    link: ({ value }: any, { slots }: any) => {
+      return h('a', {
+        href: value.href,
+        class: 'text-blue-400 hover:text-blue-300 underline',
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }, slots.default?.());
+    }
+  },
+  block: {
+    h1: (_: any, { slots }: any) => h('h1', { class: 'text-4xl font-bold mt-12 mb-6 dm-serif-italic text-white' }, slots.default?.()),
+    h2: (_: any, { slots }: any) => h('h2', { class: 'text-3xl font-bold mt-10 mb-5 dm-serif-italic text-white' }, slots.default?.()),
+    h3: (_: any, { slots }: any) => h('h3', { class: 'text-2xl font-bold mt-8 mb-4 dm-serif-italic text-white' }, slots.default?.()),
+    normal: (_: any, { slots }: any) => h('p', { class: 'text-white/80 leading-relaxed mb-6' }, slots.default?.()),
+    blockquote: (_: any, { slots }: any) => h('blockquote', { class: 'border-l-4 border-white/20 pl-4 italic text-white/70 my-6' }, slots.default?.()),
+  },
+  list: {
+    bullet: (_: any, { slots }: any) => h('ul', { class: 'list-disc pl-6 mb-6 text-white/80 space-y-2' }, slots.default?.()),
+    number: (_: any, { slots }: any) => h('ol', { class: 'list-decimal pl-6 mb-6 text-white/80 space-y-2' }, slots.default?.()),
+  },
+  listItem: {
+    bullet: (_: any, { slots }: any) => h('li', { class: 'marker:text-white/50' }, slots.default?.()),
+    number: (_: any, { slots }: any) => h('li', { class: 'marker:text-white/50' }, slots.default?.()),
+  }
+};
+</script>
+
+<template>
+  <main class="px-32 pt-36 pb-32 max-w-5xl mx-auto">
+    <RouterLink to="/projects" class="mb-10 flex items-center gap-3 text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200">
+      <ChevronLeft /> Retour aux projets
+    </RouterLink>
+    
+    <div v-if="loading" class="text-white/50 text-xl text-center py-20">
+      Chargement du projet...
+    </div>
+    
+    <div v-else-if="project" class="animate-in fade-in slide-in-from-bottom-8 duration-700">
+      <h1 class="text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl text-white">
+        {{ project.nameOfProject }}
+      </h1>
+      
+      <div class="flex items-center gap-4 mb-12 text-white/60">
+        <span class="px-3 py-1 bg-white/10 rounded-full text-sm font-medium">{{ project.projectType }}</span>
+        <span class="text-sm">{{ project.creationDate }}</span>
+      </div>
+
+      <div class="prose prose-invert prose-lg max-w-none">
+        <PortableText
+          v-if="project.article"
+          :value="project.article"
+          :components="myPortableTextComponents"
+        />
+        <div v-else class="text-white/50 italic mb-8">
+          Aucun contenu pour ce projet.
+        </div>
+      </div>
+
+      <div v-if="youtubeEmbedUrl" class="mt-16">
+        <h2 class="text-3xl font-bold text-white dm-serif-italic mb-6">Vidéo</h2>
+        <div class="aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+          <iframe 
+            :src="youtubeEmbedUrl" 
+            class="w-full h-full"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div v-if="project.gallery && project.gallery.length > 0" class="mt-16">
+        <h2 class="text-3xl font-bold text-white dm-serif-italic mb-6">Galerie</h2>
+        <viewer :images="project.gallery" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div 
+            v-for="(image, index) in project.gallery" 
+            :key="index"
+            class="relative aspect-square rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-white/20 transition-all duration-300 group flex items-center justify-center bg-black/30"
+          >
+            <!-- Arrière-plan flou (très basse résolution pour optimiser le chargement) -->
+            <div 
+              class="absolute inset-0 w-full h-full bg-cover bg-center blur-xl scale-110 opacity-40 group-hover:scale-125 transition-transform duration-500"
+              :style="{ backgroundImage: `url(${urlFor(image).width(400).auto('format').quality(50).url()})` }"
+            ></div>
+            <!-- Image principale centrée (HD max 1920px) -->
+            <img 
+              :src="urlFor(image).width(1920).auto('format').quality(80).url()" 
+              class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-2xl"
+              alt="Image de la galerie"
+            />
+          </div>
+        </viewer>
+      </div>
+
+    </div>
+    
+    <div v-else class="text-red-400 text-xl py-20">
+      Projet introuvable.
+    </div>
+  </main>
+</template>
+
+

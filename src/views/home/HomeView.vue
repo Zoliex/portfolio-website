@@ -400,7 +400,7 @@ const props = withDefaults(defineProps<Props>(), {
       class="w-full pt-30 flex justify-center flex-col px-32"
     >
       <h1
-        class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
+        class="scroll-m-20 text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl"
       >
         Mes projets
       </h1>
@@ -410,12 +410,12 @@ const props = withDefaults(defineProps<Props>(), {
         :autoplay="true"
         :duration="5000"
       >
-        <RouterLink :to="'projects'">
+        <RouterLink to="/projects">
           <LandingPageBtn
             text="Voir tout"
             theme="primary"
             :hyper-grow="false"
-            class="h-ful"
+            class="h-full"
             ><Eye
           /></LandingPageBtn>
         </RouterLink>

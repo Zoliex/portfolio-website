@@ -15,9 +15,9 @@ import Link from "@/components/link/Link.vue";
             </div>
           </a>
           <div class="flex gap-5 justify-center">
-            <Link href="#about-me">A propos</Link>
-            <Link href="#projects">Mes projets</Link>
-            <Link href="#skills">Mes compétences</Link>
+            <Link href="/#about-me">A propos</Link>
+            <Link href="/#projects">Mes projets</Link>
+            <Link href="/#skills">Mes compétences</Link>
             <Link href="/CV_ENZO_COQUELLE_MARS_2026.pdf" :open-extern="true">Mon CV</Link>
           </div>
         </div>
