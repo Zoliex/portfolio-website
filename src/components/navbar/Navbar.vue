@@ -40,8 +40,8 @@ onMounted(() => {
             <a class="flex gap-4 items-center" href="https://github.com/Zoliex/" target="_blank">
               <img src="/profile_picture.jpg" class="w-10 md:w-12 rounded-lg">
               <div>
-                <h5 class="font-bold text-sm md:text-base">Enzo Coquelle</h5>
-                <span class="text-xs md:text-sm hover:text-blue-500 hover:scale-110 hover:font-bold hover:tracking-wide active:scale-105 animate-all duration-200">@Zoliex</span>
+                <h5 class="text-shadow-lg text-shadow-black/50 font-bold text-sm md:text-base">Enzo Coquelle</h5>
+                <span class="text-shadow-lg text-shadow-black/50 text-xs md:text-sm hover:text-blue-500 hover:scale-110 hover:font-bold hover:tracking-wide active:scale-105 animate-all duration-200">@Zoliex</span>
               </div>
             </a>
             
