@@ -118,42 +118,36 @@ const projects = [
   },
 ];
 
-import pcbDesignImg from "../../../public/skills_images/pcb_design.png";
-import codeImg from "../../../public/skills_images/code.png";
-import benchImg from "../../../public/skills_images/bench.jpg";
-import rpiCaseImg from "../../../public/skills_images/rpi_case.png";
-import smartArduinoCarImg from "../../../public/skills_images/smart_arduino_car.jpg";
-
 const skills = [
   {
     title: "Électronique & Conception PCB",
     description:
       "Dimensionnement de circuits analogiques/numériques, routage de cartes avec EasyEDA et Proteus.",
-    image: pcbDesignImg,
+    image: "/skills_images/pcb_design.png",
   },
   {
     title: "Programmation Embarquée",
     description:
       "Développement bas niveau (C/C++, Python) pour microcontrôleurs : famille ESP32, puces WCH (CH32V003), et Raspberry Pi Pico.",
-    image: smartArduinoCarImg,
+    image: "/skills_images/smart_arduino_car.jpg",
   },
   {
     title: "Développement Web & Logiciel",
     description:
       "Création d'applications Fullstack, Desktop et Mobile avec des technologies modernes : Vue.js, TypeScript, Tailwind CSS, Node.js.",
-    image: codeImg,
+    image: "/skills_images/code.png",
   },
   {
     title: "Tests, Diagnostic & Réparation",
     description:
       "Recherche de pannes, réparation de cartes défectueuses et développement d'outils de visualisation pour des bancs de test.",
-    image: benchImg,
+    image: "/skills_images/bench.jpg",
   },
   {
     title: "Prototypage & CAO 3D",
     description:
       "Modélisation de pièces et boîtiers sur Fusion 360, impression 3D via Bambu Studio.",
-    image: rpiCaseImg,
+    image: "/skills_images/rpi_case.png",
   },
 ];
 
