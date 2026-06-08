@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, h, computed } from 'vue';
+import { ref, onMounted, h, computed, nextTick } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
 import { ChevronLeft } from '@lucide/vue';
 import { client, urlFor } from '@/lib/sanity';
 import { PortableText } from '@portabletext/vue';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const route = useRoute();
 const project = ref<any>(null);
@@ -20,6 +24,29 @@ onMounted(async () => {
   const query = `*[_type == "project" && slug.current == $slug][0]`;
   project.value = await client.fetch(query, { slug });
   loading.value = false;
+
+  await nextTick();
+
+  gsap.fromTo(".gsap-header-fade", 
+    { opacity: 0, y: 30 },
+    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+  );
+
+  gsap.utils.toArray('.gsap-section-fade').forEach((el: any) => {
+    gsap.fromTo(el, 
+      { opacity: 0, y: 50 },
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.3, 
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        }
+      }
+    );
+  });
 });
 
 const youtubeEmbedUrl = computed(() => {
@@ -73,19 +100,21 @@ const myPortableTextComponents = {
     </div>
     
     <article v-else-if="project" class="w-full">
-      <RouterLink to="/projects" class="mb-10 flex items-center gap-3 text-base md:text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200"><ChevronLeft /> Retour aux projets</RouterLink>
-      
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white dm-serif-italic mb-6 leading-tight">
-        {{ project.nameOfProject }}
-      </h1>
-      
-      <div class="flex flex-wrap items-center gap-4 text-white/50 mb-8 font-medium">
-        <span class="text-sm capitalize">{{ formatDate(project.creationDate) }}</span>
-        <span class="hidden sm:inline">•</span>
-        <span class="px-3 py-1 bg-white/10 rounded-full text-xs md:text-sm font-medium w-fit">{{ project.projectType }}</span>
+      <div class="gsap-header-fade opacity-0">
+        <RouterLink to="/projects" class="mb-10 flex items-center gap-3 text-base md:text-lg underline hover:text-blue-500 hover:font-bold hover:tracking-wide animate-all duration-200"><ChevronLeft /> Retour aux projets</RouterLink>
+        
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white dm-serif-italic mb-6 leading-tight">
+          {{ project.nameOfProject }}
+        </h1>
+        
+        <div class="flex flex-wrap items-center gap-4 text-white/50 mb-8 font-medium">
+          <span class="text-sm capitalize">{{ formatDate(project.creationDate) }}</span>
+          <span class="hidden sm:inline">•</span>
+          <span class="px-3 py-1 bg-white/10 rounded-full text-xs md:text-sm font-medium w-fit">{{ project.projectType }}</span>
+        </div>
       </div>
 
-      <div class="prose prose-invert prose-lg max-w-none">
+      <div class="prose prose-invert prose-lg max-w-none gsap-section-fade opacity-0">
         <PortableText
           v-if="project.article"
           :value="project.article"
@@ -96,7 +125,7 @@ const myPortableTextComponents = {
         </div>
       </div>
 
-      <div v-if="youtubeEmbedUrl" class="mt-16">
+      <div v-if="youtubeEmbedUrl" class="mt-16 gsap-section-fade opacity-0">
         <h2 class="text-3xl font-bold text-white dm-serif-italic mb-6">Vidéo</h2>
         <div class="aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
           <iframe 
@@ -110,7 +139,7 @@ const myPortableTextComponents = {
       </div>
 
       <!-- Galerie si existante -->
-      <div v-if="project.gallery && project.gallery.length > 0" class="mt-16">
+      <div v-if="project.gallery && project.gallery.length > 0" class="mt-16 gsap-section-fade opacity-0">
         <h2 class="text-2xl md:text-3xl font-bold text-white dm-serif-italic mb-6">Galerie</h2>
         <viewer :images="project.gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div 
