@@ -275,7 +275,7 @@ const props = withDefaults(defineProps<Props>(), {
     </section>
 
     <!-- About me section -->
-    <section id="about-me" class="w-full pt-20 md:pt-30 flex justify-center px-8 md:px-10 xl:px-32">
+    <section id="about-me" class="w-full scroll-mt-32 pt-20 md:pt-30 flex justify-center px-8 md:px-10 xl:px-32">
       <div>
         <h1
           class="scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
@@ -378,7 +378,7 @@ const props = withDefaults(defineProps<Props>(), {
     <!-- projects section -->
     <section
       id="projects"
-      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-8 md:px-10 xl:px-32"
+      class="w-full scroll-mt-32 pt-20 md:pt-30 flex justify-center flex-col px-8 md:px-10 xl:px-32"
     >
       <h1
         class="scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl"
@@ -407,7 +407,7 @@ const props = withDefaults(defineProps<Props>(), {
     <!-- skills section -->
     <section
       id="skills"
-      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-8 md:px-10 xl:px-32"
+      class="w-full scroll-mt-32 pt-20 md:pt-30 flex justify-center flex-col px-8 md:px-10 xl:px-32"
     >
       <h1
         class="scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic mb-6 md:mb-10 text-shadow-xl"
