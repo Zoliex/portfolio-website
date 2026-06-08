@@ -63,25 +63,25 @@ onUnmounted(() => {
   >
     <div
       ref="timelineRef"
-      class="relative z-0 mx-auto max-w-7xl pb-20"
+      class="relative z-0 mx-auto max-w-7xl pb-0 md:pb-20"
     >
       <div
         v-for="(item, index) in props.items"
         :key="item.id + index"
-        class="flex justify-start pt-10 md:gap-10 md:pt-40"
+        class="flex flex-col justify-start pt-10 md:flex-row md:gap-10 md:pt-40"
       >
         <div
-          class="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm"
+          class="relative z-40 flex max-w-xs flex-col items-start self-start md:sticky md:top-40 md:w-full md:flex-row md:items-center lg:max-w-sm"
         >
           <div
-            class="absolute left-3 flex size-10 items-center justify-center rounded-full md:left-3"
+            class="absolute left-3 hidden size-10 items-center justify-center rounded-full md:left-3 md:flex"
           >
             <div
               class="size-4 rounded-full border p-2 border-neutral-700 bg-neutral-800"
             />
           </div>
           <h3
-            class="hidden text-xl font-bold md:block md:pl-20 md:text-5xl"
+            class="block pb-4 text-2xl font-bold md:pb-0 md:pl-20 md:text-5xl"
           >
             {{ item.label }}
           </h3>
@@ -106,7 +106,7 @@ onUnmounted(() => {
 
       <div
         :style="{ height: `${height}px` }"
-        class="absolute top-0 left-8 w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-0% via-neutral-200 to-transparent to-99% md:left-8 dark:via-neutral-700 [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+        class="absolute top-0 left-8 hidden w-[2px] overflow-hidden bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-0% via-neutral-200 to-transparent to-99% md:block md:left-8 dark:via-neutral-700 [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
       >
         <Motion
           as="div"

@@ -60,10 +60,10 @@ function randomRotateY() {
 </script>
 
 <template>
-  <div class="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
-    <div class="relative grid grid-cols-1 gap-20 md:grid-cols-2">
+  <div class="mx-auto w-full py-10 font-sans antialiased md:max-w-4xl md:px-8 md:py-20 lg:px-12">
+    <div class="relative grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
       <div>
-        <div class="relative h-85 w-full">
+        <div class="relative h-64 w-full sm:h-80 lg:h-96">
             <Motion
               v-for="(testimonial, index) in props.testimonials"
               :key="testimonial.image"
@@ -161,7 +161,7 @@ function randomRotateY() {
             </Motion>
           </Motion>
         </Motion>
-        <div class="flex gap-5 pt-12 md:pt-0">
+        <div class="flex gap-5 pt-12 lg:pt-0">
           <button
             class="group/button flex items-center justify-center aspect-square bg-neutral-300/30 border-neutral-500 drop-shadow-neutral-800/50 hover:drop-shadow-neutral-800/30' rounded-full border focus:outline-2 focus:outline-offset-2 drop-shadow-lg hover:drop-shadow-xl hover:scale-110 hover:font-bold hover:tracking-wide active:scale-105 animate-all duration-200"
             @click="handlePrev"

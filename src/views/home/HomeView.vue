@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from "vue";
 import { client, urlFor } from "@/lib/sanity";
-import { useWindowScroll } from "@vueuse/core";
+import { useWindowScroll, useWindowSize } from "@vueuse/core";
 import { RouterLink } from "vue-router";
 
 import StarsBackground from "@/components/ui/bg-stars/StarsBackground.vue";
@@ -16,8 +16,11 @@ import { ChevronDown, Eye } from "@lucide/vue";
 
 //Get realtime scroll Y position
 const { y } = useWindowScroll();
+const { width } = useWindowSize();
 
 const dynamicPadding = computed(() => {
+  if (width.value <= 640) return 0;
+
   const triggerPoint = 50;
   const maxPadding = 64;
   const speed = 0.3;
@@ -237,34 +240,33 @@ const props = withDefaults(defineProps<Props>(), {
     >
       <StarsBackground :factor="0.05" :speed="50" star-color="#fff" />
 
-      <div class="absolute px-5 pt-26">
+      <div class="absolute px-5 pt-26 w-full md:w-auto">
         <BlurReveal :delay="0.2" :duration="0.75">
           <h2
-            class="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-8xl/none"
+            class="text-5xl font-bold tracking-tighter sm:text-6xl md:text-8xl/none"
           >
             <span class="dm-serif-italic">Kenavo</span> 👋
           </h2>
           <span
-            class="text-xl tracking-tighter text-pretty sm:text-3xl xl:text-6xl/none"
+            class="block mt-2 text-2xl tracking-tighter text-pretty sm:text-4xl md:text-5xl lg:text-6xl/none"
           >
             Moi c'est Enzo Coquelle
           </span>
 
           <span
-            class="text-md tracking-tighter text-pretty sm:text-xl xl:text-2xl/none"
+            class="block mt-4 text-xl tracking-tighter text-pretty sm:text-2xl md:text-2xl/none"
           >
-            <br />
             Etudiant passionné en BUT GEII
           </span>
         </BlurReveal>
-        <div class="flex mt-15 gap-8">
-          <a href="/CV_ENZO_COQUELLE_MARS_2026.pdf" target="_blank">
-            <LandingPageBtn text="Voir mon CV" theme="secondary"
+        <div class="flex flex-col sm:flex-row mt-10 md:mt-15 gap-4 md:gap-8 w-full sm:w-auto">
+          <a href="/CV_ENZO_COQUELLE_MARS_2026.pdf" target="_blank" class="w-full sm:w-auto">
+            <LandingPageBtn text="Voir mon CV" theme="secondary" class="w-full justify-center"
               ><Eye
             /></LandingPageBtn>
           </a>
-          <a href="#about-me">
-            <LandingPageBtn text="En savoir plus" theme="primary"
+          <a href="#about-me" class="w-full sm:w-auto">
+            <LandingPageBtn text="En savoir plus" theme="primary" class="w-full justify-center"
               ><ChevronDown
             /></LandingPageBtn>
           </a>
@@ -273,10 +275,10 @@ const props = withDefaults(defineProps<Props>(), {
     </section>
 
     <!-- About me section -->
-    <section id="about-me" class="w-full pt-20 md:pt-30 flex justify-center px-6 md:px-16 lg:px-32">
+    <section id="about-me" class="w-full pt-20 md:pt-30 flex justify-center px-8 md:px-10 xl:px-32">
       <div>
         <h1
-          class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
+          class="scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic mb-10 text-shadow-xl"
         >
           A propos
         </h1>
@@ -307,7 +309,7 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
 
         <h1
-          class="mt-24 md:mt-36 scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
+          class="mt-12 md:mt-36 scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
         >
           Mon parcours
         </h1>
@@ -315,19 +317,20 @@ const props = withDefaults(defineProps<Props>(), {
         <Timeline :items="educationnal_background" />
 
         <h1
-          class="mt-24 md:mt-36 scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
+          class="mt-12 md:mt-36 scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic text-shadow-xl"
         >
-          Engagement et expériences
+          Engagement et <br class="block md:hidden" /> expériences
         </h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 mt-8 md:mt-15 gap-6 md:gap-4 w-full">
-          <CardContainer v-for="experience in experiences" class="h-full">
+          <CardContainer v-for="experience in experiences" class="h-full w-full">
             <CardBody
               class="group/card relative h-full w-full rounded-xl border p-6 pb-18 bg-linear-to-t from-neutral-500/20 to-neutral-950 border-neutral-500 hover:shadow-2xl hover:shadow-neutral-500/10 transition-all duration-150"
             >
               <CardItem
                 v-bind="props.title"
-                class="text-lg font-bold text-white pr-24"
+                class="text-lg font-bold text-white pr-16 hyphens-auto break-words"
+                lang="fr"
               >
                 {{ experience.title }}
               </CardItem>
@@ -335,7 +338,7 @@ const props = withDefaults(defineProps<Props>(), {
               <CardItem
                 as="p"
                 v-bind="props.description"
-                class="mt-2 max-w-sm text-sm text-neutral-300 pr-24"
+                class="mt-2 max-w-sm text-sm text-neutral-300 pr-16"
               >
                 {{ experience.company_name }}
               </CardItem>
@@ -375,10 +378,10 @@ const props = withDefaults(defineProps<Props>(), {
     <!-- projects section -->
     <section
       id="projects"
-      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-6 md:px-16 lg:px-32"
+      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-8 md:px-10 xl:px-32"
     >
       <h1
-        class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl"
+        class="scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic mb-6 text-shadow-xl"
       >
         Mes projets
       </h1>
@@ -404,10 +407,10 @@ const props = withDefaults(defineProps<Props>(), {
     <!-- skills section -->
     <section
       id="skills"
-      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-6 md:px-16 lg:px-32"
+      class="w-full pt-20 md:pt-30 flex justify-center flex-col px-8 md:px-10 xl:px-32"
     >
       <h1
-        class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-6 md:mb-10 text-shadow-xl"
+        class="scroll-m-20 text-4xl md:text-5xl lg:text-6xl tracking-tight text-balance dm-serif-italic mb-6 md:mb-10 text-shadow-xl"
       >
         Mes compétences
       </h1>
