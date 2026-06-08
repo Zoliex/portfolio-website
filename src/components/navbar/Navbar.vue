@@ -29,12 +29,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav ref="navContainerRef" class="fixed top-8 z-[800] w-full flex justify-center px-8 md:px-12">
+  <nav ref="navContainerRef" class="fixed top-4 md:top-8 z-[800] w-full flex justify-center px-4 md:px-12">
     <div class="relative w-full md:max-w-fit flex flex-col items-center">
       <component 
         :is="isChromium ? LiquidGlass : 'div'"
         :class="!isChromium ? 'backdrop-blur-xl bg-black/40 border border-white/10 rounded-[2rem] shadow-2xl w-full' : ''"
-        containerClass="left-8 right-8 md:left-auto md:right-auto"
+        containerClass="left-4 right-4 md:left-auto md:right-auto"
       >
           <div class="px-6 py-4 h-18 flex justify-between md:gap-20 items-center w-full">
             <a class="flex gap-4 items-center" href="https://github.com/Zoliex/" target="_blank">
