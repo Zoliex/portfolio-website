@@ -49,7 +49,7 @@ onMounted(() => {
               <Link href="/#about-me">A propos</Link>
               <Link href="/#projects">Mes projets</Link>
               <Link href="/#skills">Mes compétences</Link>
-              <Link href="/CV_ENZO_COQUELLE_MARS_2026.pdf" :open-extern="true">Mon CV</Link>
+              <Link href="/CV_ENZO_COQUELLE_JUIN_2026.pdf" :open-extern="true">Mon CV</Link>
             </div>
 
             <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="md:hidden ml-6 flex items-center justify-center text-white/80 hover:text-white transition-colors">

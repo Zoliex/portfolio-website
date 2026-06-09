@@ -191,7 +191,7 @@ onMounted(async () => {
           </span>
         </BlurReveal>
         <div class="flex flex-col sm:flex-row mt-10 md:mt-15 gap-4 md:gap-8 w-full sm:w-auto">
-          <a href="/CV_ENZO_COQUELLE_MARS_2026.pdf" target="_blank" class="w-full sm:w-auto">
+          <a href="/CV_ENZO_COQUELLE_JUIN_2026.pdf" target="_blank" class="w-full sm:w-auto">
             <LandingPageBtn text="Voir mon CV" theme="secondary" class="w-full justify-center"
               ><Eye
             /></LandingPageBtn>
