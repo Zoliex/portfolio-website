@@ -176,7 +176,7 @@ onMounted(async () => {
           <h2
             class="text-5xl font-bold tracking-tighter sm:text-6xl md:text-8xl/none"
           >
-            <span class="dm-serif-italic">Kenavo</span> 👋
+            <span class="dm-serif-italic">Bonjour</span> 👋
           </h2>
           <span
             class="block mt-2 text-2xl tracking-tighter text-pretty sm:text-4xl md:text-5xl lg:text-6xl/none"

@@ -3,11 +3,6 @@ import { ref, onMounted, nextTick } from 'vue';
 import { RouterLink } from 'vue-router';
 import { ChevronLeft } from '@lucide/vue';
 import { client, urlFor } from '@/lib/sanity';
-import ProgressiveBlur from '@/components/ui/progressive-blur/ProgressiveBlur.vue';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const projects = ref<any[]>([]);
 
@@ -28,29 +23,12 @@ onMounted(async () => {
     creationDate
   }`;
   projects.value = await client.fetch(query);
-  
-  await nextTick();
-  
-  gsap.fromTo(".gsap-header-fade", 
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
-  );
-
-  gsap.fromTo(".gsap-fade-up", 
-    { opacity: 0, y: 50 },
-    { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out", 
-      scrollTrigger: {
-        trigger: ".projects-container",
-        start: "top 85%",
-      }
-    }
-  );
 });
 </script>
 
 <template>
   <main class="px-6 md:px-16 lg:px-32 pb-16 md:pb-32">
-    <div class="gsap-header-fade opacity-0">
+    <div>
       <h1
         class="scroll-m-20 text-4xl md:text-6xl tracking-tight text-balance dm-serif-italic mb-8 text-shadow-xl pt-24 md:pt-36"
       >
@@ -63,7 +41,7 @@ onMounted(async () => {
       <div
         v-for="project in projects"
         :key="project._id"
-        class="h-full gsap-fade-up opacity-0"
+        class="h-full"
       >
         <RouterLink
           :to="{ name: 'ProjectDetail', params: { slug: project.slug } }"
@@ -80,12 +58,7 @@ onMounted(async () => {
             Aucune image
           </div>
           
-          <!-- Progressive Blur Overlay -->
-          <ProgressiveBlur
-            direction="bottom"
-            :blurIntensity="1.5"
-            class="absolute bottom-0 left-0 right-0 h-2/3 pointer-events-none z-10"
-          />
+
           
           <!-- Gradient overlay to ensure text readability -->
           <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 z-10 pointer-events-none"></div>
