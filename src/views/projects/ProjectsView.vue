@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { ChevronLeft } from '@lucide/vue';
 import { client, urlFor } from '@/lib/sanity';
