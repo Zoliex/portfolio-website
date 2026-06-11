@@ -53,7 +53,7 @@ const educationnal_background = [
     label: "Lycée Sévigné",
     img: "/schools/sevigne_high_school.jpeg",
     training_name: "Baccalauréat Général - 2024",
-    training_description: "Spécialités Mathématiques et Physique-chimie, option Maths Expertes",
+    training_description: "Spécialités Mathématiques et Physique-chimie, option Maths Expertes. Mention bien.",
   },
   {
     id: "iutrennes",
