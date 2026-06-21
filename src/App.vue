@@ -1,9 +1,9 @@
 <script setup lang="ts">
 //Libraries
-import { isMobile } from 'mobile-device-detect';
+/* import { isMobile } from 'mobile-device-detect'; */
 
 //Components
-import SmoothCursor from "@/components/ui/smooth-cursor/SmoothCursor.vue";
+/* import SmoothCursor from "@/components/ui/smooth-cursor/SmoothCursor.vue"; */
 import Navbar from '@/components/navbar/Navbar.vue';
 import PageFooter from '@/components/page-footer/PageFooter.vue';
 
@@ -22,6 +22,6 @@ const lenisOptions = {
 
   <PageFooter />
   
-  <SmoothCursor v-if="!isMobile" />
+  <!-- <SmoothCursor v-if="!isMobile" /> -->
   <VueLenis root :options="lenisOptions" />
 </template>
